@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var doQuery = require('../utils/doQuery')
+var doQuery = require('../Utils/doQuery')
 var axios = require("axios");
 router
   .route("/users") //ติดต่อฐานข้อมูลทั้งหมดเลย
