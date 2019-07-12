@@ -2,7 +2,7 @@ var express = require("express");
 var con = require("../config/route");
 var router = express.Router();
 var mongoObjectId = require("../Utils/generateId");
-var doQuery = require('../utils/doQuery')
+var doQuery = require('../Utils/doQuery')
 
 router
   .route("/User")
