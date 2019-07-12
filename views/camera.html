@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript scan qrcode</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <script src="../assets/vue.min.js"></script>
+    <script src="../assets/instascan.min.js"></script>
+    <style>
+         table.table td, 
+         table.table th
+         {
+            vertical-align:  middle;
+         } 
+    </style>
+</head>
+
+<body style="background-color: antiquewhite">
+    <br>
+    <div class = "container" id="app">
+        <div class="row">
+            <!-- Camera QRCode Scanner -->
+           <div class="col-3">
+            <div class="card text-center" >
+             <video  id="preview" class="card-img-top"></video>
+                <div class="card-body">
+                  <h5 class="card-title text-uppercase ">
+                      QRCode Scanner
+                  </h5>
+                  <p class="alert alert-warning">
+                     {{ message }}
+                    </p>
+                  <a href="#" class="btn btn-primary btn-block">
+                      more detail
+                  </a>
+                </div>
+              </div>
+           </div>
+           <!-- List of QRCode -->
+           <div class="col-9">
+               <div class="card" style="min-height: 300px">
+                   <div class="card-body">
+                       <h4 class="card-title">
+                            List of qrcode
+                       </h4>
+                        <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>QRcode</th>
+                                <th class="text-right">Del</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) of items">
+                                <td>{{ index +1}}</td>
+                                <td>{{item   }}</td>
+                                <td class="text-right">
+                                    <button @click="onDelete(index)"class="btn-sm btn-danger">&times;</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                      </table>
+                   </div>
+               </div>
+           </div>
+        </div>
+    </div>
+    <!-- javascript -->
+    <script>
+      var vueApp =  new Vue({
+            el: '#app',
+            data: {
+                items: [],
+                message : 'Please scan'
+            },
+       
+            mounted: function () {
+                this.onInitialOpenCamera();
+            },
+            methods: {
+                onDelete: function (index) {
+                     if(!confirm('Do you want to delete')) return;
+                     this.items.splice(index, 1 );
+                },
+                onInitialOpenCamera() {
+                    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+                    scanner.addListener('scan', function (content) {
+                        if(vueApp.items.indexOf(content) >= 0){
+                           vueApp.message = 'QRcode is exists .';
+                        }else{
+                            vueApp.items.push(content);
+                            vueApp.message = 'Insert success.';
+                        }
+                    setTimeout(function () {
+                        vueApp.message  = 'Plese scan';
+                    }, 1500);
+                    
+
+                });
+                    Instascan.Camera
+                    .getCameras()
+                    .then(function (cameras) {
+                       if(cameras.lenght <= 0) return alert('Not found camera .');
+                        scanner.start(cameras[0]);
+                        // console.log(cameras)
+                    })
+                    .catch(error => alert(error))
+                }
+            }
+  
+        });
+    </script>
+</body>
+
+</html>
