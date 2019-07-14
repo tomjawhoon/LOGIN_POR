@@ -34,37 +34,37 @@ router
   })
 
 
-router
-.route("/parn") //ติดต่อฐานข้อมูลทั้งหมดเลย
-.get((req, res) => {
-  var sql = "SELECT * FROM event1" //ดึงค่ามา จาก database 
-  doQuery(sql).then((resp) => {
-      res.json(resp)
-    })
-    .catch(err => [
-      res.json({
-        msg: err
-      })
-    ])
-})
+// router
+// .route("/parn") //ติดต่อฐานข้อมูลทั้งหมดเลย
+// .get((req, res) => {
+//   var sql = "SELECT * FROM event" //ดึงค่ามา จาก database 
+//   doQuery(sql).then((resp) => {
+//       res.json(resp)
+//     })
+//     .catch(err => [
+//       res.json({
+//         msg: err
+//       })
+//     ])
+// })
 
-.post((req, res) => {
-  var param = req.body;
-  var sql = `INSERT INTO User(device_id) 
-             VALUES('${body.device_id}')`;
-  doQuery(sql).then(resp => {
-    res.json({
-      message: 'success',
-      data: resp
-    })
-    // res.redirect('/')   
-  }).catch(err => {
-    res.json({
-      message: err
-    })
-  })
+// .post((req, res) => {
+//   var param = req.body;
+//   var sql = `INSERT INTO User(device_id) 
+//              VALUES('${body.device_id}')`;
+//   doQuery(sql).then(resp => {
+//     res.json({
+//       message: 'success',
+//       data: resp
+//     })
+//     // res.redirect('/')   
+//   }).catch(err => {
+//     res.json({
+//       message: err
+//     })
+//   })
 
-})
+// })
 
 router
   .route('/login')
@@ -77,10 +77,11 @@ router
             console.log(resp);
             if(resp == '') {
               console.log("error")
+              // res.redirect('/Registor')
 
             } else if(resp[0].username && resp[0].password){
               res.render('showdatabase.html',data)
-              console.log("good")
+              console.log("complete")
             }
       // res.render('showdatabase.html',data);
     })
@@ -89,7 +90,7 @@ router
 router
   .route('/Showtime/')
   .get((req, res) => {
-    var sql = `SELECT * FROM event1`;
+    var sql = `SELECT * FROM event`;
     console.log("Check_showtime")
     doQuery(sql).then(resp =>
         res.json(resp))
