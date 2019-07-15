@@ -90,7 +90,8 @@ router
 router
   .route('/Showtime/')
   .get((req, res) => {
-    var sql = `SELECT * FROM event`;
+    var sql = `SELECT * FROM event1
+    `;
     console.log("Check_showtime")
     doQuery(sql).then(resp =>
         res.json(resp))
