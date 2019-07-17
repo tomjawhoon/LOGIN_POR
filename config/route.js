@@ -8,7 +8,7 @@ var con   = mysql.createConnection({
     port        : '3306'
 })
 
-con.connect(function(err) {
+con.connect((err) => {
     if(err) throw err
     console.log("Server was connected!")
 })

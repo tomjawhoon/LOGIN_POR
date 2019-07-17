@@ -53,8 +53,8 @@ app.get('/camera', (req, res) => {
   res.render('camera.html');
 })
 
-app.get('/parn', (req, res) => {
-  res.render('parn.ejs');
+app.get('/arduino', (req, res) => {
+  res.render('arduino.html');
 })
 
 // app.post('/parn', async (req, res) => { // เงื่อ นไขการสมัคร

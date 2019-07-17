@@ -33,39 +33,6 @@ router
     })
   })
 
-
-// router
-// .route("/parn") //ติดต่อฐานข้อมูลทั้งหมดเลย
-// .get((req, res) => {
-//   var sql = "SELECT * FROM event" //ดึงค่ามา จาก database 
-//   doQuery(sql).then((resp) => {
-//       res.json(resp)
-//     })
-//     .catch(err => [
-//       res.json({
-//         msg: err
-//       })
-//     ])
-// })
-
-// .post((req, res) => {
-//   var param = req.body;
-//   var sql = `INSERT INTO User(device_id) 
-//              VALUES('${body.device_id}')`;
-//   doQuery(sql).then(resp => {
-//     res.json({
-//       message: 'success',
-//       data: resp
-//     })
-//     // res.redirect('/')   
-//   }).catch(err => {
-//     res.json({
-//       message: err
-//     })
-//   })
-
-// })
-
 router
   .route('/login')
   .post((req, res) => { //ต่อเนื่องมาจากหน้้า
@@ -90,8 +57,7 @@ router
 router
   .route('/Showtime/')
   .get((req, res) => {
-    var sql = `SELECT * FROM event1
-    `;
+    var sql = `SELECT * FROM event1`;
     console.log("Check_showtime")
     doQuery(sql).then(resp =>
         res.json(resp))
@@ -101,4 +67,26 @@ router
         });
       });
   });
+
+
+router
+  .route('/arduino')
+  .post((req, res) => {
+    var body = req.body
+    var sql = `INSERT INTO event1(device_id, Token) 
+            VALUES('12345667' , '1111111111')`;
+    doQuery(sql).then(resp => {
+      res.json({
+        message: 'success',
+        data: resp
+      })  
+    }).catch(err => {
+      res.json({
+        message: err
+      })
+    })
+  })
+  
+  
+
 module.exports = router;
